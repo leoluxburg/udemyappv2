@@ -34,11 +34,11 @@ class _MyAppState extends State<MyApp>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(brightness: Brightness.dark, primarySwatch: Colors.grey),
+      theme: ThemeData(brightness: Brightness.dark, primarySwatch: Colors.grey, fontFamily: 'Monserrat'),
       //home: AuthPage(),
       routes: {
         '/': (BuildContext context) => AuthPage(),
-        '/admin': (BuildContext context) => PictureIndex( _addPicture, _deletePicture),
+        '/admin': (BuildContext context) => PictureIndex( _addPicture, _deletePicture, _pictures),
         '/pictures': (BuildContext context) => ProfilePage(_pictures),
 
       },
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp>{
           final int index = int.parse(pathData[2]);
         return  MaterialPageRoute<bool> (
                         builder: (BuildContext context) => PicturePage(
-                            _pictures[index]['title'], _pictures[index]['image']),
+                            _pictures[index]['title'], _pictures[index]['image'], _pictures[index]['description']),
                       );
         }
         return null;

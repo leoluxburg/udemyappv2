@@ -4,10 +4,10 @@ import 'dart:async';
 class PicturePage extends StatelessWidget {
   final String title;
   final String imageUrl;
+  final String description;
+  PicturePage(this.title, this.imageUrl,this.description);
 
-  PicturePage(this.title, this.imageUrl);
-
-  _alert(BuildContext context) {
+/*  _alert(BuildContext context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -32,7 +32,7 @@ class PicturePage extends StatelessWidget {
           );
         });
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -43,22 +43,31 @@ class PicturePage extends StatelessWidget {
         },
         child: Scaffold(
           appBar: AppBar(
-            title: Text(title),
+            title: Text(title) 
+            ,
           ),
           body: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: ListView(
+              //crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Image.asset(imageUrl),
                 Container(
+                  margin: EdgeInsets.all(10.0),
                   padding: EdgeInsets.all(10.0),
-                  child: Text(title),
+                  alignment: Alignment.center,
+                  child: Text(title, style: TextStyle(fontSize: 20.0)),
                 ),
-                RaisedButton(
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10.0),
+                  padding: EdgeInsets.all(10.0),
+                  alignment: Alignment.center,
+                  child: Text(description, textAlign: TextAlign.justify,),
+                ),
+                /*RaisedButton(
                   color: Theme.of(context).splashColor,
                   child: Text('Delete'),
                   onPressed: () => _alert(context),
-                ),
+                ),*/
               ],
             ),
           ),

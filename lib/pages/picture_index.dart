@@ -6,8 +6,9 @@ import './profile.dart';
 class PictureIndex extends StatelessWidget {
   final Function addPicture;
   final Function deletePicture;
+  final List<Map<String, dynamic>> pictures;
 
-  PictureIndex(this.addPicture, this.deletePicture);
+  PictureIndex(this.addPicture, this.deletePicture, this.pictures);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class PictureIndex extends StatelessWidget {
       ),
       body:  TabBarView(
         children: <Widget>[
-          PictureListPage(),
+          PictureListPage(pictures),
           PictureCreatePage(addPicture)
         ],
       ),

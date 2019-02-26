@@ -13,12 +13,20 @@ class Pictures extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Image.asset(pictures[index]['image']),
-          Text(pictures[index]['title']),
+          SizedBox(height: 10.0,),
+          Text(pictures[index]['title'],
+          style: TextStyle(fontSize: 20.0, fontFamily:'Monserrat' ),),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlatButton(
-                child: Text('Description'),
+              IconButton(
+                icon: Icon(Icons.info),
+                onPressed: () => Navigator
+                .pushNamed<bool>(
+                  context, '/pictures/' + index.toString())
+              ),
+              IconButton(
+                icon: Icon(Icons.favorite_border),
                 onPressed: () => Navigator
                 .pushNamed<bool>(
                   context, '/pictures/' + index.toString())

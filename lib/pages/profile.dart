@@ -28,6 +28,10 @@ class ProfilePage extends StatelessWidget{
       ),
       appBar: AppBar(
         title: Text('Mi Fara'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.favorite),
+          onPressed: (){},)
+        ],
       ),
       body: PictureController(pictures)
     );

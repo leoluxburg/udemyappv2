@@ -12,66 +12,82 @@ class PictureCreatePage extends StatefulWidget {
 }
 
 class _PicturetCreatePageState extends State<PictureCreatePage> {
-  String titleValue;
-  String description;
-  String severity;
+  final Map<String, dynamic> _pictureValue = {
+    'title': null,
+    'description': null, 
+    'severity': null,
+    'image': 'assets/fara.png'
+  };
+  final GlobalKey<FormState> _picturekey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10.0),
-      child: ListView(
-        children: <Widget>[
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Title',
+    return GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Container(
+          margin: EdgeInsets.all(10.0),
+          child: Form(
+            key: _picturekey,
+            child: ListView(
+              children: <Widget>[
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Title',
+                  ),
+                  validator: (String value) {
+                    // if (value.trim().length <= 0)
+                    if (value.isEmpty) return 'Title is requiered';
+                  },
+                  onSaved: (String value) {
+                    setState(() {
+                      _pictureValue['title'] = value;
+                    });
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Description',
+                  ),
+                  maxLines: 10,
+                  validator: (String value) {
+                    // if (value.trim().length <= 0)
+                    if (value.isEmpty) return 'Title is requiered';
+                  },
+                  onSaved: (String value) {
+                    setState(() {
+                      _pictureValue['description']= value;
+                    });
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Priority',
+                  ),
+                  onSaved: (String value) {
+                    setState(() {
+                       _pictureValue['severity'] = value;
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                RaisedButton(
+                  child: Text('Save'),
+                  onPressed: () {
+                    if (!_picturekey.currentState.validate()) {
+                      return;
+                    }
+                    _picturekey.currentState.save();
+                    widget.addPicture(_pictureValue);
+                    Navigator.pushReplacementNamed(context, '/pictures');
+                  },
+                )
+              ],
             ),
-            onChanged: (String value) {
-              setState(() {
-                titleValue = value;
-              });
-            },
           ),
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Description',
-            ),
-            maxLines: 6,
-            onChanged: (String value) {
-              setState(() {
-                description = value;
-              });
-            },
-          ),
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Priority',
-            ),
-            onChanged: (String value) {
-              setState(() {
-                severity = value;
-              });
-            },
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          RaisedButton(
-            child: Text('Save'),
-            onPressed: () {
-              final Map<String, dynamic> picture = {
-                'title': titleValue,
-                'description': description,
-                'severity': severity,
-                'image':'assets/fara.png'
-              };
-              widget.addPicture(picture);
-              Navigator.pushReplacementNamed(context, '/pictures');
-
-            },
-          )
-        ],
-      ),
-    );
+        ));
   }
 }
